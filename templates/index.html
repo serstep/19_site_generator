@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>Полезные статьи</title>
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="assets/css/articles.css">
+		<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../assets/css/articles.css">
 		<meta charset="utf-8">
 	</head>
 	<body>
@@ -14,18 +14,19 @@
 		
 
 		<div class="container">
-			<div>
 				{% for topic in topics %}
+					<div class="topic">
 					<h3>{{ topic["title"] }}</h3>
-					<ul class="articles_list">
+					<ul class="articles_list ">
 						{% for article in articles -%}
 
 							{% if article["topic"] == topic["slug"] %}
-								<li><a href="{{articles_destination}}/{{ topic['slug'] }}/{{ article['source'] | basename | replace('.md', '.html') }}">{{article["title"]}}</a></li>
+								<li><a href="{{ topic['slug'] }}/{{ article['source'] | basename | replace('.md', '.html') }}">{{article["title"]}}</a></li>
 							{% endif %}
 
 						{%- endfor %}
 					</ul>
+					</div>
 				
 				{% endfor %}
 				
@@ -34,6 +35,6 @@
 
 
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
 	</body>
 </html>

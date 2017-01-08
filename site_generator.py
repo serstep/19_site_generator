@@ -6,7 +6,7 @@ from jinja2 import Environment, FileSystemLoader
 CONFIG_PATH = "config.json"
 ARTICLES_SOURCE_PATH = "articles"
 TEMPLATES_PATH = "templates"
-ARTICLES_DEST_PATH = "built"
+DESTINATION_PATH = "built"
 
 
 def load_config_data():
@@ -38,17 +38,18 @@ def build_index_page(config_data):
     environment.filters["basename"] = path.basename
 
     index_template = environment.get_template("index.html")
-    index_template.stream(config_data, articles_destination=ARTICLES_DEST_PATH).dump("index.html")
+    dump_path = path.join(DESTINATION_PATH, "index.html")
+    index_template.stream(config_data).dump(dump_path)
 
 
 def get_article_html_filepath(article):
     new_filename = path.basename(article["source"]).replace(".md", ".html")
-    return path.join(ARTICLES_DEST_PATH, article["topic"], new_filename)
+    return path.join(DESTINATION_PATH, article["topic"], new_filename)
 
 
 def create_catalogues_for_topics(topics):
     for topic in topics:
-        topic_dir_path = path.join(ARTICLES_DEST_PATH, topic["slug"])
+        topic_dir_path = path.join(DESTINATION_PATH, topic["slug"])
         os.makedirs(topic_dir_path, exist_ok=True)
 
 
