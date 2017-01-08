@@ -1,6 +1,6 @@
 # Encyclopedia
 
-Script site_generator.py provides you to compile markdown articles into web pages. It generate index page which contain the list of all articles.
+Script site_generator.py provides you to compile markdown articles into web pages. It generate index page which contain the list of all articles. You can see example on https://serstep.github.io/serstep.github.io/index.html
 
 ##Using
 
