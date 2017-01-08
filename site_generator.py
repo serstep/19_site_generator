@@ -1,12 +1,14 @@
 import json, mistune, os
 from os import path
 from jinja2 import Environment, FileSystemLoader
+import shutil
 
 
 CONFIG_PATH = "config.json"
 ARTICLES_SOURCE_PATH = "articles"
 TEMPLATES_PATH = "templates"
 DESTINATION_PATH = "built"
+ASSETS_PATH = "assets"
 
 
 def load_config_data():
@@ -39,13 +41,19 @@ def build_index_page(config_data):
 
     index_template = environment.get_template("index.html")
     dump_path = path.join(DESTINATION_PATH, "index.html")
-    index_template.stream(config_data).dump(dump_path)
+    index_template.stream(config_data).dump(dump_path)  
 
 
 def get_article_html_filepath(article):
     new_filename = path.basename(article["source"]).replace(".md", ".html")
     return path.join(DESTINATION_PATH, article["topic"], new_filename)
 
+
+def copy_assets():
+    try:
+        shutil.copytree(ASSETS_PATH, path.join(DESTINATION_PATH, ASSETS_PATH))
+    except (shutil.Error, FileExistsError):
+        print("Assets are already copied.")
 
 def create_catalogues_for_topics(topics):
     for topic in topics:
@@ -75,3 +83,4 @@ if __name__ == "__main__":
     load_all_articles(config_data)
     build_index_page(config_data)
     build_articles_pages(config_data)
+    copy_assets()
