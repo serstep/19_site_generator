@@ -1,0 +1,13 @@
+.articles_list {
+	list-style: none;
+	font-size: 18px;
+	padding: 0px;
+}
+
+
+.article-content{
+	font-size: 20px;
+	padding-bottom: 50px;
+	width: 60%;
+}
+

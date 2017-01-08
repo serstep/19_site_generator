@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Полезные статьи</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/articles.css">
+		<meta charset="utf-8">
+	</head>
+	<body>
+
+		<div class="navbar navbar-default ">
+			<div class="container"><a href="index.html" class="navbar-brand">Статьи начинающим разработчикам</a></div>
+		</div>
+		
+
+		<div class="container">
+			<div>
+				{% for topic in topics %}
+					<h3>{{ topic["title"] }}</h3>
+					<ul class="articles_list">
+						{% for article in articles -%}
+
+							{% if article["topic"] == topic["slug"] %}
+								<li><a href="{{articles_destination}}/{{ topic['slug'] }}/{{ article['source'] | basename | replace('.md', '.html') }}">{{article["title"]}}</a></li>
+							{% endif %}
+
+						{%- endfor %}
+					</ul>
+				
+				{% endfor %}
+				
+			</div>
+		</div>
+
+
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
